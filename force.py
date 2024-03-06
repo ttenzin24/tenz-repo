@@ -14,7 +14,7 @@ if missing_value_choice == "1":
      m = F / a
      print(f"Mass (m) = {m}")
 
-elif missing_value_choice == "2":
+elif missing_value_choice == "2" :
      m = float(input("Enter mass (m): "))
      F = float(input("Enter force (F): "))
      a = F / m
