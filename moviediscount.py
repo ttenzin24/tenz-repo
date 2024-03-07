@@ -10,8 +10,3 @@ elif (x >= "13" or x <= "18") and y == "yes" :
 
 else:
     print("You are not eligible for a discount on movie ticket!")
-    
-
-
-
-
