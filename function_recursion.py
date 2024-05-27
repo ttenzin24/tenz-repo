@@ -1,8 +1,8 @@
 def sum_of_digits(n):
-    if n < 10:
+    if n < 10: # Base case: If n is a single-digit number, return n
         return n
     
-    else:
+    else: # Recursive case: Calculate the sum of digit
         last_digit = n % 10
         remaining_digits = n // 10
 
