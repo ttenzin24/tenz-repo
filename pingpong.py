@@ -1,11 +1,11 @@
 import pygame
 import random
-
-# Define colors
+import time
+#Define colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
-# Define the game constants
+# Define game constants
 WIDTH, HEIGHT = 800, 600
 BALL_RADIUS = 10
 PADDLE_WIDTH = 100
@@ -17,7 +17,7 @@ class Ball:
         self.y = HEIGHT // 2
         self.speed_x = random.choice([-3, 3])
         self.speed_y = 2
-
+    
     def move(self):
         self.x += self.speed_x
         self.y += self.speed_y
@@ -40,7 +40,8 @@ class Paddle:
             self.x -= 10
         elif direction == "right" and self.x < WIDTH - self.width:
             self.x += 10
-        
+            
+
 class Game:
     def __init__(self):
         self.ball = Ball()
@@ -49,6 +50,16 @@ class Game:
         self.font = pygame.font.Font(None, 36)
         self.game_over = False
 
+        self.countdown_time = 3  # Set the countdown time in seconds
+    def countdown(self, screen):
+        for i in range(self.countdown_time, 0, -1):
+            screen.fill(BLACK)
+            countdown_text = self.font.render(str(i), True, WHITE)
+            countdown_rect = countdown_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+            screen.blit( countdown_text, countdown_rect)
+            pygame.display.flip()
+            time.sleep(1)
+            
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -60,36 +71,39 @@ class Game:
 
         if self.ball.y >= HEIGHT - BALL_RADIUS - PADDLE_HEIGHT:
             if self.paddle.x <= self.ball.x <= self.paddle.x + PADDLE_WIDTH:
-                self.ball.y = HEIGHT -BALL_RADIUS - PADDLE_HEIGHT - 1
+                self.ball.y = HEIGHT - BALL_RADIUS - PADDLE_HEIGHT - 1
                 self.ball.speed_y = -self.ball.speed_y
                 self.score += 1
             else:
                 self.game_over = True
-
+            
     def draw(self, screen):
         screen.fill(BLACK)
         pygame.draw.circle(screen, WHITE, (self.ball.x, self.ball.y), BALL_RADIUS)
         pygame.draw.rect(screen, WHITE, (self.paddle.x, self.paddle.y, self.paddle.width, self.paddle.height))
         score_text = self.font.render(f"Score: {self.score}", True, WHITE)
-        screen.blit(score_text, (10, 10))
+
+        screen.blit(score_text, (10, 10)) # Exercise: Adding feature of score tracking at end
         if self.game_over:
             game_over_text = self.font.render(f"Your score: {self.score}", True, WHITE)
             game_over_rect = game_over_text.get_rect()
             game_over_rect.center = (WIDTH // 2, HEIGHT // 2)
             screen.blit(game_over_text, game_over_rect)
 
-def main():
+def main(): # Exercise: Adding feature of countdown timer 
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Ping Pong")
     clock = pygame.time.Clock()
     game = Game()
 
+    game.countdown(screen)
+
     while not game.game_over:
         game.handle_events()
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        if keys [pygame.K_LEFT]:
             game.paddle.move("left")
         if keys[pygame.K_RIGHT]:
             game.paddle.move("right")
@@ -101,6 +115,4 @@ def main():
         clock.tick(60)
 
     pygame.quit()
-
-if __name__ == "__main__":
-    main()
+main()
