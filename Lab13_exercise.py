@@ -47,8 +47,8 @@ class Student(Person):
     def attend_class(self):
         print(f"{self.name} is attending class.")
 
-    def decode(self):
-        print(f"{self.name} is decoding.")
+    def study(self):
+        print(f"{self.name} is studying for test.")
 
 
 # Creating objects
@@ -60,4 +60,4 @@ teacher1.kick()
 teacher1.eat()
 teacher1.teach()
 student1.code()
-student1.decode()
+student1.study()
