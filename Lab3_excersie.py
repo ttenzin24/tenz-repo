@@ -1,10 +1,12 @@
-age = int(input("Enter your age: "))
+x = input("Enter your age:")
 
-student = input("Are you a student? (yes/no): ")
+y = input("Are you a student? (yes/no):")
 
-discount = (age <= 12) or (13 <= age <= 18 and student == "yes")
+if x <= "12" :
+    print("You are eligible for a discount on the movie ticket!")
 
-if discount:
-    print("You are eligible for a discount.")
+elif (x >= "13" or x <= "18") and y == "yes" :
+    print("You are eligible for a discount on movie ticket!")
+
 else:
-    print("You are not eligible for a discount.")
+    print("You are not eligible for a discount on movie ticket!")
